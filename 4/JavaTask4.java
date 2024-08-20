@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 public class JavaTask4 {
     public static void main(String[] args) {
-        // Пример текста для задач
         String text = "Апельсин и яблоко растут на дереве. В доме есть телефон: +375 (29) 123-4567 и еще один 80 1234567, 80 123, +375 (29) 22. Лол";
 
         System.out.println("Слова, начинающиеся на гласные:");
