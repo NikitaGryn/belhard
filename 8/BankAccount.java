@@ -11,7 +11,7 @@ public class BankAccount {
         }
     }
 
-    public void withdraw(double amount) throws InsufficientFundsException {
+    public void withdraw(double amount) {
         if (amount > balance) {
             throw new InsufficientFundsException("Insufficient funds. Available balance: " + balance);
         }
