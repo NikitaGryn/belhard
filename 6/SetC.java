@@ -1,39 +1,36 @@
 import java.util.*;
 
 public class SetC<T> implements Set<T> {
-    private List<T> elements;
+    private final Map<T, Object> map;
+    private static final Object PRESENT = new Object();
 
     public SetC() {
-        elements = new ArrayList<>();
+        map = new HashMap<>();
     }
 
     @Override
     public boolean add(T e) {
-        if (!elements.contains(e)) {
-            elements.add(e);
-            return true;
-        }
-        return false;
+        return map.put(e, PRESENT) == null;
     }
 
     @Override
     public boolean remove(Object o) {
-        return elements.remove(o);
+        return map.remove(o) != null;
     }
 
     @Override
     public boolean contains(Object o) {
-        return elements.contains(o);
+        return map.containsKey(o);
     }
 
     @Override
     public int size() {
-        return elements.size();
+        return map.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return elements.isEmpty();
+        return map.isEmpty();
     }
 
     @Override
@@ -49,24 +46,60 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return elements.containsAll(c);
+        return map.keySet().containsAll(c);
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return elements.removeAll(c);
+        boolean modified = false;
+        for (Object element : c) {
+            if (remove(element)) {
+                modified = true;
+            }
+        }
+        return modified;
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return map.keySet().iterator();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return map.keySet().toArray();
+    }
+
+    @Override
+    public <T1> T1[] toArray(T1[] a) {
+        return map.keySet().toArray(a);
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return map.keySet().retainAll(c);
     }
 
     @Override
     public String toString() {
-        return elements.toString();
+        return map.keySet().toString();
     }
 
-    @Override public void clear() { elements.clear(); }
-    @Override public Iterator<T> iterator() { return elements.iterator(); }
-    @Override public Object[] toArray() { return elements.toArray(); }
-    @Override public <T1> T1[] toArray(T1[] a) { return elements.toArray(a); }
-    @Override public boolean retainAll(Collection<?> c) { return false; }
-    @Override public boolean equals(Object o) { return false; }
-    @Override public int hashCode() { return 0; }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Set)) return false;
+        Set<?> set = (Set<?>) o;
+        return map.keySet().equals(set);
+    }
+
+    @Override
+    public int hashCode() {
+        return map.keySet().hashCode();
+    }
 }
