@@ -3,7 +3,7 @@ class PrintNumbers {
     private final int MAX = 100;
 
     public synchronized void printOdd() {
-        while (number < MAX) {
+        while (number <= MAX) {  
             if (number % 2 == 0) {
                 try {
                     wait();
@@ -18,7 +18,7 @@ class PrintNumbers {
     }
 
     public synchronized void printEven() {
-        while (number <= MAX) {
+        while (number <= MAX) {  
             if (number % 2 != 0) {
                 try {
                     wait();
@@ -32,5 +32,3 @@ class PrintNumbers {
         }
     }
 }
-
-
